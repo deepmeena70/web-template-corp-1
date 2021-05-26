@@ -6742,7 +6742,7 @@ footer .container .footer-data {
   grid-column: 4/6;
 }
 
-footer .container .footer-data .numbers {
+footer .container .footer-data .numbers div:first-child {
   font-size: 48px;
   font-weight: 700;
 }
