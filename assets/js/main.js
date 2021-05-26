@@ -34,7 +34,7 @@ const globalReach = document.getElementById("global-reach");
 const globalClient = document.getElementById("global-clients");
 const globalReachVal = globalReach.innerHTML;
 const globalClientVal = globalClient.innerHTML;
-const clientNumber = Number(globalClientVal);
+const clientNumber = Number(globalClientVal.replace(/,/g, ''));
 const globalReachNumber = Number(globalReachVal.replace(/,/g, ''));
 
 let count = 1;
@@ -48,7 +48,7 @@ const counter = () => {
         globalReach.innerHTML = count;
 
     if (count >= clientNumber)
-        globalClient.innerHTML = clientNumber;
+        globalClient.innerHTML = globalClientVal;
     else
         globalClient.innerHTML = count;
 
