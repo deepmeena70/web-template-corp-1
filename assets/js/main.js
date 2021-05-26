@@ -28,3 +28,32 @@ for (let i = 0; i < menuItem.length; i++) {
         collapse(i);
     });
 }
+
+// footer
+const globalReach = document.getElementById("global-reach");
+const globalClient = document.getElementById("global-clients");
+const globalReachVal = globalReach.innerHTML;
+const globalClientVal = globalClient.innerHTML;
+const clientNumber = Number(globalClientVal);
+const globalReachNumber = Number(globalReachVal.replace(/,/g, ''));
+
+let count = 1;
+const counter = () => {
+    if (count >= globalReachNumber)
+        clearInterval(counterInterval);
+
+    if (count >= globalReachNumber)
+        globalReach.innerHTML = globalReachVal;
+    else
+        globalReach.innerHTML = count;
+
+    if (count >= clientNumber)
+        globalClient.innerHTML = clientNumber;
+    else
+        globalClient.innerHTML = count;
+
+    count *= 2;
+
+};
+
+let counterInterval = setInterval(counter, 100);
