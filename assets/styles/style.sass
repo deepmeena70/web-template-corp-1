@@ -290,6 +290,7 @@ header
     // background-color: $black-secondary
     height: 500px
     text-align: center
+    overflow: hidden
     .text
         padding-top: 100px
         font-weight: 700
@@ -323,6 +324,11 @@ header
         font-size: 12px
     .slide
         display: none
+
+@keyframes slide-animate
+    from
+        opacity: 0
+        transform: translateX(100px)
 
 
 footer

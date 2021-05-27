@@ -6219,8 +6219,6 @@ readers do not read off random characters that represent icons */
   height: 60px;
   -webkit-transform: rotate(135deg);
           transform: rotate(135deg);
-  -webkit-animation: load-2 2s linear 2s forwards;
-          animation: load-2 2s linear 2s forwards;
   left: 0%;
 }
 
@@ -6255,8 +6253,6 @@ readers do not read off random characters that represent icons */
   height: 60px;
   -webkit-transform: rotate(-45deg);
           transform: rotate(-45deg);
-  -webkit-animation: load-1 linear 2s forwards;
-          animation: load-1 linear 2s forwards;
   left: -100%;
 }
 
@@ -6283,17 +6279,28 @@ readers do not read off random characters that represent icons */
 
 @-webkit-keyframes load-1 {
   from {
-    -webkit-transform: rotate(-45deg);
-            transform: rotate(-45deg);
-  }
-  to {
     -webkit-transform: rotate(135deg);
             transform: rotate(135deg);
+  }
+  to {
+    -webkit-transform: rotate(315deg);
+            transform: rotate(315deg);
   }
 }
 
 @keyframes load-1 {
   from {
+    -webkit-transform: rotate(135deg);
+            transform: rotate(135deg);
+  }
+  to {
+    -webkit-transform: rotate(315deg);
+            transform: rotate(315deg);
+  }
+}
+
+@-webkit-keyframes load-2 {
+  from {
     -webkit-transform: rotate(-45deg);
             transform: rotate(-45deg);
   }
@@ -6303,25 +6310,14 @@ readers do not read off random characters that represent icons */
   }
 }
 
-@-webkit-keyframes load-2 {
-  from {
-    -webkit-transform: rotate(135deg);
-            transform: rotate(135deg);
-  }
-  to {
-    -webkit-transform: rotate(315deg);
-            transform: rotate(315deg);
-  }
-}
-
 @keyframes load-2 {
   from {
-    -webkit-transform: rotate(135deg);
-            transform: rotate(135deg);
+    -webkit-transform: rotate(-45deg);
+            transform: rotate(-45deg);
   }
   to {
-    -webkit-transform: rotate(315deg);
-            transform: rotate(315deg);
+    -webkit-transform: rotate(135deg);
+            transform: rotate(135deg);
   }
 }
 
@@ -6723,6 +6719,7 @@ header .container {
 #testimonial-container {
   height: 500px;
   text-align: center;
+  overflow: hidden;
 }
 
 #testimonial-container .text {
@@ -6771,6 +6768,22 @@ header .container {
 
 #testimonial-container .slide {
   display: none;
+}
+
+@-webkit-keyframes slide-animate {
+  from {
+    opacity: 0;
+    -webkit-transform: translateX(100px);
+            transform: translateX(100px);
+  }
+}
+
+@keyframes slide-animate {
+  from {
+    opacity: 0;
+    -webkit-transform: translateX(100px);
+            transform: translateX(100px);
+  }
 }
 
 footer {

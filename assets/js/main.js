@@ -1,40 +1,41 @@
 // dropdowns
-
-let menuItem = [];
-let list = [];
-
-menuItem = document.getElementsByClassName("menu-item");
-list = document.getElementsByClassName("list");
-
+const menuItem = document.getElementsByClassName("menu-item");
+const list = document.getElementsByClassName("list");
 const expand = (i) => {
-    // console.log(i + 1)
     list[i].style.display = "block";
-
-
-}
+};
 
 const collapse = (i) => {
-    // console.log(i)
     list[i].style.display = "none";
+};
+const dropdowns = () => {
 
-}
+    for (let i = 0; i < menuItem.length; i++) {
+        menuItem[i].addEventListener('mouseover', e => {
+            expand(i);
+        });
+        menuItem[i].addEventListener('mouseleave', e => {
+            collapse(i);
+        });
+    }
+};
 
-for (let i = 0; i < menuItem.length; i++) {
-    menuItem[i].addEventListener('mouseover', e => {
-        expand(i);
-    });
+// progress
+const circleHalfOne = document.getElementsByClassName("circle-half-one");
+const circleHalfTwo = document.getElementsByClassName("circle-half-two");
 
-    menuItem[i].addEventListener('mouseleave', e => {
-        collapse(i);
-    });
-}
+const progress = () => {
+    for (let i = 0; i < circleHalfOne.length; i++) {
+
+        circleHalfOne[i].style.animation = "load-1 2s linear 2s forwards";
+        circleHalfTwo[i].style.animation = "load-2 linear 2s forwards";
+    }
+};
+
 //accordion
-let accordionTitle = [];
-let accordionDescription = [];
-let accordionExpandCollapse = [];
-accTitle = document.getElementsByClassName("accordion-title");
-accDescription = document.getElementsByClassName("accordion-description");
-accExpandCollapse = document.getElementsByClassName("accordion-expand-collapse");
+const accTitle = document.getElementsByClassName("accordion-title");
+const accDescription = document.getElementsByClassName("accordion-description");
+const accExpandCollapse = document.getElementsByClassName("accordion-expand-collapse");
 
 const accordionActions = () => {
 
@@ -55,63 +56,103 @@ const accordionActions = () => {
         });
     }
 
-
 };
 
-
-accordionActions();
-
-
 // testimonial slider
-let testimonialSlides = [];
-testimonialSlides = document.getElementsByClassName("slide");
-testimonialSlides[0].style.display = "block";
-
+const testimonialSlides = document.getElementsByClassName("slide");
 let slideCount = 0;
+
 const slideAnimate = () => {
     if (slideCount > testimonialSlides.length - 1)
         slideCount = 0;
-    console.log(slideCount);
     for (let i = 0; i < testimonialSlides.length; i++) {
         testimonialSlides[i].style.display = "none";
     }
-    if (slideCount == testimonialSlides.length - 1)
-        testimonialSlides[slideCount - (testimonialSlides.length - 1)].style.display = "block";
+    if (slideCount == testimonialSlides.length - 1) {
+
+        testimonialSlides[0].style.display = "block";
+        testimonialSlides[0].style.animation = "slide-animate 500ms ease-out forwards";
+    }
     if (slideCount < testimonialSlides.length - 1) {
         testimonialSlides[slideCount + 1].style.display = "block";
+        testimonialSlides[slideCount + 1].style.animation = "slide-animate 500ms ease-out";
     }
     slideCount++;
 
 }
 
-let slideInterval = setInterval(slideAnimate, 3000);
+const testimonialSlider = () => {
 
+    testimonialSlides[0].style.display = "block";
 
-// footer
-const globalReach = document.getElementById("global-reach");
-const globalClient = document.getElementById("global-clients");
-const globalReachVal = globalReach.innerHTML;
-const globalClientVal = globalClient.innerHTML;
-const clientNumber = Number(globalClientVal.replace(/,/g, ''));
-const globalReachNumber = Number(globalReachVal.replace(/,/g, ''));
+    setInterval(slideAnimate, 3500);
+}
 
-let count = 1;
-const counter = () => {
-    if (count >= globalReachNumber)
-        clearInterval(counterInterval);
+// footer count
 
-    if (count >= globalReachNumber)
-        globalReach.innerHTML = globalReachVal;
-    else
-        globalReach.innerHTML = count;
+const footerCount = () => {
+    const globalReach = document.getElementById("global-reach");
+    const globalClient = document.getElementById("global-clients");
+    const globalReachVal = globalReach.innerHTML;
+    const globalClientVal = globalClient.innerHTML;
+    const clientNumber = Number(globalClientVal.replace(/,/g, ''));
+    const globalReachNumber = Number(globalReachVal.replace(/,/g, ''));
 
-    if (count >= clientNumber)
-        globalClient.innerHTML = globalClientVal;
-    else
-        globalClient.innerHTML = count;
+    let count = 1;
+    const counter = () => {
+        if (count >= globalReachNumber)
+            clearInterval(counterInterval);
 
-    count *= 2;
+        if (count >= globalReachNumber)
+            globalReach.innerHTML = globalReachVal;
+        else
+            globalReach.innerHTML = count;
 
+        if (count >= clientNumber)
+            globalClient.innerHTML = globalClientVal;
+        else
+            globalClient.innerHTML = count;
+
+        count *= 2;
+
+    };
+
+    let counterInterval = setInterval(counter, 100);
 };
 
-let counterInterval = setInterval(counter, 100);
+//load 
+dropdowns();
+accordionActions();
+testimonialSlider();
+
+
+// on scroll
+
+const body = document.body,
+    html = document.documentElement;
+
+const height = Math.max(body.scrollHeight, body.offsetHeight,
+    html.clientHeight, html.scrollHeight, html.offsetHeight);
+
+let footerActive = false;
+let progressActive = false;
+
+window.addEventListener('scroll', e => {
+    for (let i = 0; i < list.length; i++) {
+        collapse(i);
+    }
+    // progress circle animation
+    if (scrollY > height * 0.4) {
+        if (progressActive == false) {
+            progress();
+        }
+        progressActive = true;
+    }
+    // footer count animation
+    if (scrollY > height * 0.7) {
+        if (footerActive == false)
+            footerCount();
+
+        footerActive = true;
+    }
+});
