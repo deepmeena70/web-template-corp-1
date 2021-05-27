@@ -28,6 +28,64 @@ for (let i = 0; i < menuItem.length; i++) {
         collapse(i);
     });
 }
+//accordion
+let accordionTitle = [];
+let accordionDescription = [];
+let accordionExpandCollapse = [];
+accTitle = document.getElementsByClassName("accordion-title");
+accDescription = document.getElementsByClassName("accordion-description");
+accExpandCollapse = document.getElementsByClassName("accordion-expand-collapse");
+
+const accordionActions = () => {
+
+    accDescription[0].style.display = "block";
+    accExpandCollapse[0].style.animation = "acc-expand-collapse 200ms ease-in-out forwards";
+
+    for (let i = 0; i < accDescription.length; i++) {
+        accTitle[i].addEventListener('click', e => {
+
+            if (window.getComputedStyle(accDescription[i]).display == "block") {
+                accDescription[i].style.display = "none";
+                accExpandCollapse[i].style.animation = "acc-expand-collapse 200ms ease-in-out reverse";
+            } else {
+                accDescription[i].style.display = "block";
+                accExpandCollapse[i].style.animation = "acc-expand-collapse 200ms ease-in-out forwards";
+            }
+
+        });
+    }
+
+
+};
+
+
+accordionActions();
+
+
+// testimonial slider
+let testimonialSlides = [];
+testimonialSlides = document.getElementsByClassName("slide");
+testimonialSlides[0].style.display = "block";
+
+let slideCount = 0;
+const slideAnimate = () => {
+    if (slideCount > testimonialSlides.length - 1)
+        slideCount = 0;
+    console.log(slideCount);
+    for (let i = 0; i < testimonialSlides.length; i++) {
+        testimonialSlides[i].style.display = "none";
+    }
+    if (slideCount == testimonialSlides.length - 1)
+        testimonialSlides[slideCount - (testimonialSlides.length - 1)].style.display = "block";
+    if (slideCount < testimonialSlides.length - 1) {
+        testimonialSlides[slideCount + 1].style.display = "block";
+    }
+    slideCount++;
+
+}
+
+let slideInterval = setInterval(slideAnimate, 3000);
+
 
 // footer
 const globalReach = document.getElementById("global-reach");

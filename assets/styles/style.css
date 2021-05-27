@@ -6,7 +6,9 @@
 .fa,
 .fas,
 .caret-down,
+#accordion .accordion-expand-collapse,
 .far,
+#recent-post .time,
 .fal,
 .fad,
 .fab,
@@ -24,7 +26,7 @@
   line-height: 1;
 }
 
-.caret-down, #social .facebook, #social .twitter, #social .linkedin, #social .instagram, #social .telegram {
+.caret-down, #accordion .accordion-expand-collapse, #recent-post .time, #social .facebook, #social .twitter, #social .linkedin, #social .instagram, #social .telegram {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   display: inline-block;
@@ -128,7 +130,9 @@
 .fa.fa-pull-left,
 .fas.fa-pull-left,
 .fa-pull-left.caret-down,
+#accordion .fa-pull-left.accordion-expand-collapse,
 .far.fa-pull-left,
+#recent-post .fa-pull-left.time,
 .fal.fa-pull-left,
 .fab.fa-pull-left,
 #social .fa-pull-left.facebook,
@@ -142,7 +146,9 @@
 .fa.fa-pull-right,
 .fas.fa-pull-right,
 .fa-pull-right.caret-down,
+#accordion .fa-pull-right.accordion-expand-collapse,
 .far.fa-pull-right,
+#recent-post .fa-pull-right.time,
 .fal.fa-pull-right,
 .fab.fa-pull-right,
 #social .fa-pull-right.facebook,
@@ -6131,7 +6137,9 @@ readers do not read off random characters that represent icons */
   src: url("../webfonts/fa-regular-400.eot?#iefix") format("embedded-opentype"), url("../webfonts/fa-regular-400.woff2") format("woff2"), url("../webfonts/fa-regular-400.woff") format("woff"), url("../webfonts/fa-regular-400.ttf") format("truetype"), url("../webfonts/fa-regular-400.svg#fontawesome") format("svg");
 }
 
-.far {
+
+.far,
+#recent-post .time {
   font-family: 'Font Awesome 5 Free';
   font-weight: 400;
 }
@@ -6175,7 +6183,8 @@ readers do not read off random characters that represent icons */
 
 .fa,
 .fas,
-.caret-down {
+.caret-down,
+#accordion .accordion-expand-collapse {
   font-family: 'Font Awesome 5 Free';
   font-weight: 900;
 }
@@ -6462,8 +6471,9 @@ header .container {
 
 #hero-text p {
   color: #ffffff;
-  font-size: 18px;
+  font-size: 16px;
   margin-top: 12px;
+  letter-spacing: 1.5px;
 }
 
 #head-block-container {
@@ -6616,20 +6626,68 @@ header .container {
 }
 
 #accordion {
+  -webkit-box-shadow: 0 0 4px 0px rgba(5, 4, 1, 0.3);
+          box-shadow: 0 0 4px 0px rgba(5, 4, 1, 0.3);
+  padding-top: 36px;
+  padding-left: 24px;
   padding-right: 60px;
 }
 
-#accordion .title {
-  font-weight: bold;
-  margin-bottom: 12px;
+#accordion .accordion-expand-collapse {
+  -webkit-transform-origin: center center;
+          transform-origin: center center;
+  padding-right: 8px;
 }
 
-#accordion .description {
+#accordion .accordion-expand-collapse:before {
+  content: "\f067";
+}
+
+#accordion .accordion-title {
   margin-bottom: 12px;
+  cursor: pointer;
+}
+
+#accordion .accordion-description {
+  margin-bottom: 12px;
+  display: none;
+  color: rgba(5, 4, 1, 0.7);
+}
+
+@-webkit-keyframes acc-expand-collapse {
+  from {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(45deg) translate(2px, 2px);
+            transform: rotate(45deg) translate(2px, 2px);
+  }
+}
+
+@keyframes acc-expand-collapse {
+  from {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(45deg) translate(2px, 2px);
+            transform: rotate(45deg) translate(2px, 2px);
+  }
 }
 
 #recent-post .section-title {
   padding-bottom: 24px;
+  font-size: 18px;
+}
+
+#recent-post .section-title span {
+  display: inline-block;
+  width: 80%;
+  height: 0.5px;
+  background-color: rgba(5, 4, 1, 0.2);
+  vertical-align: middle;
+  margin-left: 12px;
 }
 
 #recent-post .content {
@@ -6647,6 +6705,19 @@ header .container {
 
 #recent-post .section-title {
   font-weight: bold;
+}
+
+#recent-post .title div {
+  font-size: 12px;
+}
+
+#recent-post .time {
+  color: rgba(5, 4, 1, 0.8);
+  padding-right: 18px;
+}
+
+#recent-post .time:before {
+  content: "\f073";
 }
 
 #testimonial-container {
@@ -6667,17 +6738,24 @@ header .container {
   color: #32E875;
 }
 
-#testimonial-container img {
+#testimonial-container .profile-img {
   width: 90px;
   height: 90px;
-  border: 2px solid rgba(5, 4, 1, 0.3);
-  border-radius: 50%;
-  position: relative;
   margin-top: 24px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+#testimonial-container img {
+  width: 100%;
+  height: 100%;
 }
 
 #testimonial-container .quote {
   margin: 24px 240px 0 240px;
+  font-style: italic;
 }
 
 #testimonial-container .name {
@@ -6686,7 +6764,13 @@ header .container {
 }
 
 #testimonial-container .company-post {
-  color: rgba(5, 4, 1, 0.3);
+  color: rgba(5, 4, 1, 0.7);
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+#testimonial-container .slide {
+  display: none;
 }
 
 footer {
