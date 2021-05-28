@@ -27,8 +27,8 @@ const circleHalfTwo = document.getElementsByClassName("circle-half-two");
 const progress = () => {
     for (let i = 0; i < circleHalfOne.length; i++) {
 
-        circleHalfOne[i].style.animation = "load-1 2s linear 2s forwards";
-        circleHalfTwo[i].style.animation = "load-2 linear 2s forwards";
+        circleHalfOne[i].style.animation = "load-1 1s ease-out 1s forwards";
+        circleHalfTwo[i].style.animation = "load-2 1s ease-in  forwards";
     }
 };
 
@@ -99,19 +99,63 @@ const footerCount = () => {
     const globalReachNumber = Number(globalReachVal.replace(/,/g, ''));
 
     let count = 1;
+    const digits = (num, count = 0) => {
+        if (num) {
+            return digits(Math.floor(num / 10), ++count);
+        }
+        return count;
+    };
+
+    // ReadNumber Function to make number readable
+    const numToReadable = function(val) {
+
+        // Prevent falling in undefined value
+        if (val === '' || val === undefined || val == isNaN) return 0;
+
+        // if there's a truthy number..
+        if (val) {
+
+            // Make a Regex
+            let re = /\d{1,3}/g; // grouping each 3 digit
+            let target = val.toString();
+            let matchy;
+            // make an array for matchy string
+            let arr = [];
+            while ((matchy = re.exec(target)) !== null) {
+                arr.push(matchy[0].length);
+            }
+
+            // Convert String to Array
+            let string = target.split('');
+            // Add a comma every three digit from back
+            arr.splice(arr.length - 1); // remove buggy first comma
+            for (let i = 0; i < arr.length; i++) {
+                let count = arr[i];
+                let position = i * (count + 1);
+                string.splice(string.length - position - count, 0, ',');
+            }
+
+            // join Array
+            return string.join('');
+        }
+
+        // Prevent falling in undefined value
+        return val;
+    };
     const counter = () => {
         if (count >= globalReachNumber)
             clearInterval(counterInterval);
 
-        if (count >= globalReachNumber)
+        if (count >= globalReachNumber) {
             globalReach.innerHTML = globalReachVal;
-        else
-            globalReach.innerHTML = count;
-
-        if (count >= clientNumber)
+        } else {
+            globalReach.innerHTML = numToReadable(count);
+        }
+        if (count >= clientNumber) {
             globalClient.innerHTML = globalClientVal;
-        else
-            globalClient.innerHTML = count;
+        } else {
+            globalClient.innerHTML = numToReadable(count);
+        }
 
         count *= 2;
 
@@ -149,7 +193,7 @@ window.addEventListener('scroll', e => {
         progressActive = true;
     }
     // footer count animation
-    if (scrollY > height * 0.7) {
+    if (scrollY > height * 0.65) {
         if (footerActive == false)
             footerCount();
 
